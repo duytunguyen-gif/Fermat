@@ -8,6 +8,17 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 
+/**
+ * Domain mặc định cho đăng nhập bằng TÊN (không có "@").
+ * VD gõ "admin" → "admin@fermat.edu.vn". Ai gõ email đầy đủ thì giữ nguyên.
+ */
+const DEFAULT_LOGIN_DOMAIN = "fermat.edu.vn";
+
+function resolveEmail(input: string): string {
+  const v = input.trim();
+  return v.includes("@") ? v : `${v}@${DEFAULT_LOGIN_DOMAIN}`;
+}
+
 export function PasswordSignInForm() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
@@ -16,7 +27,7 @@ export function PasswordSignInForm() {
     e.preventDefault();
     setLoading(true);
     const form = new FormData(e.currentTarget);
-    const email = String(form.get("email") ?? "").trim();
+    const email = resolveEmail(String(form.get("email") ?? ""));
     const password = String(form.get("password") ?? "");
 
     const supabase = createClient();
@@ -35,14 +46,17 @@ export function PasswordSignInForm() {
     <form onSubmit={handleSubmit} className="space-y-3 text-left">
       <div className="space-y-1.5">
         <Label htmlFor="email" className="text-slate-300">
-          Email
+          Tên đăng nhập hoặc email
         </Label>
         <Input
           id="email"
           name="email"
-          type="email"
+          type="text"
+          inputMode="email"
           autoComplete="username"
-          defaultValue="admin@femattech.local"
+          autoCapitalize="none"
+          spellCheck={false}
+          placeholder="admin"
           required
           className="border-slate-700 bg-slate-900 text-white placeholder:text-slate-500"
         />

@@ -19,7 +19,7 @@ export default async function UsersPage() {
     supabase
       .from("users")
       .select(
-        "id, full_name, email, avatar_url, system_role, account_status, department_id, department:departments(name)",
+        "id, full_name, email, avatar_url, system_role, account_status, department_id, can_manage_attendance, department:departments(name)",
       )
       .order("created_at", { ascending: false }),
     supabase
@@ -46,6 +46,7 @@ export default async function UsersPage() {
       account_status: u.account_status,
       department_id: u.department_id,
       department_name: departmentName,
+      can_manage_attendance: u.can_manage_attendance ?? false,
     };
   });
 

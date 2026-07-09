@@ -1,6 +1,7 @@
 import {
   LayoutDashboard,
   ListTodo,
+  CalendarClock,
   Bell,
   Building2,
   Users,
@@ -23,6 +24,7 @@ export type NavItem = {
 export const NAV_ITEMS: NavItem[] = [
   { href: "/dashboard", label: "Tổng quan", icon: LayoutDashboard, mobile: true },
   { href: "/tasks", label: "Công việc", icon: ListTodo, mobile: true },
+  { href: "/attendance", label: "Chấm công", icon: CalendarClock },
   { href: "/notifications", label: "Thông báo", icon: Bell, mobile: true },
   {
     href: "/departments",

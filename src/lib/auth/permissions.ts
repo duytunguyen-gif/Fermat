@@ -45,6 +45,18 @@ export function canApprove(role: SystemRole): boolean {
   );
 }
 
+/**
+ * Được quản lý chấm công toàn công ty (xem tất cả, chỉnh sửa, xuất báo cáo).
+ * Admin trở lên luôn có; hoặc nhân viên được admin trao cờ can_manage_attendance.
+ * Phản chiếu hàm has_attendance_access() ở DB.
+ */
+export function canManageAttendance(
+  role: SystemRole,
+  canManageAttendanceFlag: boolean,
+): boolean {
+  return isAdminOrAbove(role) || canManageAttendanceFlag;
+}
+
 /** So sánh thứ hạng — role A có quyền ngang hoặc cao hơn role B. */
 export function hasRankAtLeast(role: SystemRole, min: SystemRole): boolean {
   return ROLE_RANK[role] >= ROLE_RANK[min];

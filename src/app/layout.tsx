@@ -15,25 +15,20 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "FematTech — Quản lý công việc",
-    template: "%s · FematTech",
+    default: "Fermat Tech — Quản lý công việc",
+    template: "%s · Fermat Tech",
   },
   description:
-    "Ứng dụng quản lý công việc nội bộ của FematTech: giao việc, theo dõi tiến độ, duyệt hoàn thành và báo cáo.",
-  applicationName: "FematTech",
+    "Ứng dụng quản lý công việc nội bộ của Fermat Tech: giao việc, theo dõi tiến độ, duyệt hoàn thành và báo cáo.",
+  applicationName: "Fermat Tech",
   manifest: "/manifest.webmanifest",
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
-    title: "FematTech",
+    title: "Fermat Tech",
   },
-  icons: {
-    icon: [
-      { url: "/favicon.ico", sizes: "any" },
-      { url: "/icons/icon.svg", type: "image/svg+xml" },
-    ],
-    apple: "/icons/icon.svg",
-  },
+  // Icon (favicon, icon.png, apple-icon.png) được Next tự nhận từ src/app/ theo
+  // quy ước file — không khai báo thủ công để tránh link trùng/hỏng.
 };
 
 export const viewport: Viewport = {

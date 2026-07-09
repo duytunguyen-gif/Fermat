@@ -1,9 +1,10 @@
 "use client";
 
 import { useState, useTransition } from "react";
-import { Pencil, ShieldCheck } from "lucide-react";
+import { Pencil, ShieldCheck, CalendarClock } from "lucide-react";
 import { toast } from "sonner";
-import { setUserStatus } from "@/lib/actions/users";
+import { setUserStatus, setUserAttendanceManager } from "@/lib/actions/users";
+import { isAdminOrAbove } from "@/lib/auth/permissions";
 import { ROLE_LABELS } from "@/lib/constants/roles";
 import type { AccountStatus, SystemRole } from "@/types/database.types";
 import { UserAssignDialog } from "./user-assign-dialog";
@@ -29,6 +30,7 @@ export type UserListItem = {
   account_status: AccountStatus;
   department_id: string | null;
   department_name: string | null;
+  can_manage_attendance: boolean;
 };
 
 export function UsersManager({
@@ -171,6 +173,7 @@ function ActiveUsersTable({
                         </Button>
                       }
                     />
+                    <AttendanceManagerToggle user={u} />
                     <StatusToggle user={u} />
                   </div>
                 </TableCell>
@@ -180,6 +183,53 @@ function ActiveUsersTable({
         </TableBody>
       </Table>
     </div>
+  );
+}
+
+function AttendanceManagerToggle({ user }: { user: UserListItem }) {
+  const [pending, startTransition] = useTransition();
+
+  // Admin trở lên đã có toàn quyền chấm công theo vai trò — không cần cờ riêng.
+  if (isAdminOrAbove(user.system_role)) {
+    return (
+      <Badge
+        variant="outline"
+        className="hidden text-emerald-600 lg:inline-flex"
+        title="Quản trị viên luôn có quyền quản lý chấm công"
+      >
+        <CalendarClock className="mr-1 size-3.5" />
+        Chấm công
+      </Badge>
+    );
+  }
+
+  const granted = user.can_manage_attendance;
+
+  function toggle() {
+    startTransition(async () => {
+      const res = await setUserAttendanceManager(user.id, !granted);
+      if (res.status === "error") toast.error(res.message);
+      else toast.success(res.message);
+    });
+  }
+
+  return (
+    <Button
+      size="sm"
+      variant={granted ? "default" : "outline"}
+      onClick={toggle}
+      disabled={pending}
+      title={
+        granted
+          ? "Đang có quyền quản lý chấm công — bấm để thu hồi"
+          : "Trao quyền quản lý chấm công toàn công ty"
+      }
+    >
+      <CalendarClock className="size-4" />
+      <span className="hidden sm:inline">
+        {granted ? "Có quyền chấm công" : "Trao quyền chấm công"}
+      </span>
+    </Button>
   );
 }
 

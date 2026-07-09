@@ -97,6 +97,12 @@ export interface Database {
           account_status: AccountStatus;
           department_id: string | null;
           phone: string | null;
+          real_name: string | null;
+          employee_code: string | null;
+          job_title: string | null;
+          date_of_birth: string | null;
+          address: string | null;
+          can_manage_attendance: boolean;
           created_at: string;
           updated_at: string;
         };
@@ -109,6 +115,12 @@ export interface Database {
           account_status?: AccountStatus;
           department_id?: string | null;
           phone?: string | null;
+          real_name?: string | null;
+          employee_code?: string | null;
+          job_title?: string | null;
+          date_of_birth?: string | null;
+          address?: string | null;
+          can_manage_attendance?: boolean;
           created_at?: string;
           updated_at?: string;
         };
@@ -307,6 +319,36 @@ export interface Database {
         Update: Partial<
           Database["public"]["Tables"]["activity_logs"]["Insert"]
         >;
+        Relationships: [];
+      };
+      attendance: {
+        Row: {
+          id: string;
+          user_id: string;
+          work_date: string;
+          check_in_at: string | null;
+          check_out_at: string | null;
+          work_hours: number | null;
+          is_late: boolean;
+          note: string | null;
+          recorded_by: string | null;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          user_id: string;
+          work_date?: string;
+          check_in_at?: string | null;
+          check_out_at?: string | null;
+          work_hours?: number | null;
+          is_late?: boolean;
+          note?: string | null;
+          recorded_by?: string | null;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: Partial<Database["public"]["Tables"]["attendance"]["Insert"]>;
         Relationships: [];
       };
     };
