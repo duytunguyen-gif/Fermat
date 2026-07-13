@@ -6,6 +6,7 @@ import {
   NotificationList,
   type NotificationItem,
 } from "@/components/notifications/notification-list";
+import { PushToggle } from "@/components/notifications/push-toggle";
 import type { NotificationType } from "@/types/database.types";
 
 export const metadata: Metadata = { title: "Thông báo" };
@@ -53,6 +54,9 @@ export default async function NotificationsPage() {
       <p className="text-muted-foreground mt-1 text-sm">
         Giao việc, đổi trạng thái, duyệt và cảnh báo sắp đến hạn / quá hạn.
       </p>
+      <div className="mt-6">
+        <PushToggle />
+      </div>
       <div className="mt-6">
         <NotificationList items={items} />
       </div>

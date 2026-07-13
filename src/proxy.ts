@@ -15,7 +15,9 @@ export const config = {
      * Áp dụng cho mọi đường dẫn TRỪ:
      * - _next/static, _next/image (asset build)
      * - favicon, manifest, icon, file ảnh tĩnh
+     * - sw.js (service worker) — phải phục vụ trực tiếp, không qua điều hướng
+     * - api/push (webhook gửi push — tự xác thực bằng secret, không cần phiên)
      */
-    "/((?!_next/static|_next/image|favicon.ico|manifest.webmanifest|icons/|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
+    "/((?!_next/static|_next/image|favicon.ico|manifest.webmanifest|icons/|sw\\.js|api/push|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
   ],
 };
