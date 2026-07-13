@@ -24,7 +24,7 @@ export type NavItem = {
 export const NAV_ITEMS: NavItem[] = [
   { href: "/dashboard", label: "Tổng quan", icon: LayoutDashboard, mobile: true },
   { href: "/tasks", label: "Công việc", icon: ListTodo, mobile: true },
-  { href: "/attendance", label: "Chấm công", icon: CalendarClock },
+  { href: "/attendance", label: "Chấm công", icon: CalendarClock, mobile: true },
   { href: "/notifications", label: "Thông báo", icon: Bell, mobile: true },
   {
     href: "/departments",
@@ -37,7 +37,6 @@ export const NAV_ITEMS: NavItem[] = [
     label: "Người dùng",
     icon: Users,
     roles: ["super_admin", "admin"],
-    mobile: true,
   },
   { href: "/activity-logs", label: "Lịch sử", icon: History },
 ];
@@ -50,9 +49,18 @@ export function navItemsForRole(role: SystemRole): NavItem[] {
   });
 }
 
-/** Các mục hiển thị trên bottom-nav mobile (tối đa 4 để gọn). */
+/** 4 mục chính hiển thị trên bottom-nav mobile (tối đa 4 để gọn). */
 export function mobileNavItemsForRole(role: SystemRole): NavItem[] {
   return navItemsForRole(role)
     .filter((item) => item.mobile)
     .slice(0, 4);
+}
+
+/**
+ * Các mục còn lại (không nằm trong 4 tab chính) — hiển thị trong bảng "Thêm"
+ * của bottom-nav để mobile truy cập đủ mọi mục như sidebar web.
+ */
+export function mobileOverflowItemsForRole(role: SystemRole): NavItem[] {
+  const primary = new Set(mobileNavItemsForRole(role).map((item) => item.href));
+  return navItemsForRole(role).filter((item) => !primary.has(item.href));
 }
