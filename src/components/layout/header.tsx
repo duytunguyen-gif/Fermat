@@ -39,7 +39,7 @@ export function Header({
     .toUpperCase();
 
   return (
-    <header className="bg-background/80 supports-[backdrop-filter]:bg-background/70 sticky top-0 z-30 flex h-16 items-center justify-between gap-4 border-b px-4 backdrop-blur-md md:px-8">
+    <header className="bg-background md:supports-[backdrop-filter]:bg-background/70 sticky top-0 z-30 flex h-16 items-center justify-between gap-4 border-b px-4 md:px-8 md:backdrop-blur-md">
       {/* Brand chỉ hiện trên mobile (desktop đã có ở sidebar) */}
       <Link href="/dashboard" className="flex items-center md:hidden">
         <Image

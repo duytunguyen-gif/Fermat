@@ -75,7 +75,7 @@ export function BottomNav({ role }: { role: SystemRole }) {
         </div>
       )}
 
-      <nav className="bg-background/85 supports-[backdrop-filter]:bg-background/70 fixed inset-x-0 bottom-0 z-40 grid grid-cols-5 gap-1 border-t px-2 pt-1.5 pb-[max(0.375rem,env(safe-area-inset-bottom))] backdrop-blur-md md:hidden">
+      <nav className="bg-background fixed inset-x-0 bottom-0 z-40 grid grid-cols-5 gap-1 border-t px-2 pt-1.5 pb-[max(0.375rem,env(safe-area-inset-bottom))] md:hidden">
         {items.map((item) => {
           const active = isActive(item.href);
           const Icon = item.icon;

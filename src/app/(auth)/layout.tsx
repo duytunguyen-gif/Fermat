@@ -9,7 +9,7 @@ export default function AuthLayout({
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 bg-cover bg-center opacity-25"
-        style={{ backgroundImage: "url('/brand/banner-fermat.png')" }}
+        style={{ backgroundImage: "url('/brand/banner-fermat.webp')" }}
       />
       <div
         aria-hidden

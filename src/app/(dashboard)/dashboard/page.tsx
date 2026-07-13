@@ -25,8 +25,10 @@ import type { TaskStatus, TaskPriority } from "@/types/database.types";
 import {
   StatusDonut,
   DepartmentBar,
-  type StatusSlice,
-  type DepartmentBarItem,
+} from "@/components/dashboard/dashboard-charts-lazy";
+import type {
+  StatusSlice,
+  DepartmentBarItem,
 } from "@/components/dashboard/dashboard-charts";
 import {
   Card,
